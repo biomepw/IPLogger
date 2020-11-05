@@ -1,0 +1,6 @@
+name: IPLogger
+version: ${project.version}
+main: pro.husk.iplogger.IPLogger
+api-version: 1.16
+authors: [ husK ]
+website: https://husk.pro
