@@ -23,7 +23,7 @@ public class LoggerListener implements Listener {
         Bukkit.getScheduler().runTaskAsynchronously(IPLogger.getInstance(), () -> {
             HashSet<UUID> clashSet = IPLogger.getClashes(address);
 
-            if (!clashSet.isEmpty()) {
+            if (clashSet != null && !clashSet.isEmpty()) {
                 Bukkit.broadcast(ChatColor.RED + event.getName() + " has an IP clash with users:", "iplogger.admin");
                 StringBuilder discordClashMessage = new StringBuilder(":alert: User '" + event.getName() + "' has an IP clash with following users: ```");
 
