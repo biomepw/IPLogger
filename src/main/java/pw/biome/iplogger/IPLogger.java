@@ -81,11 +81,18 @@ public final class IPLogger extends JavaPlugin {
      */
     public void saveAllToFile() {
         playerIpMap.forEach((address, users) -> {
-            String ymlSafeAddress = address.replaceAll("/\\./", ",");
+            String ymlSafeAddress = removeDots(address);
             List<String> userList = new ArrayList<>();
             users.forEach(uuid -> userList.add(uuid.toString()));
             getConfig().set(ymlSafeAddress, userList);
         });
         saveConfig();
+    }
+
+    private static String removeDots(String string) {
+        while (string.contains(".")) {
+            string = string.replace(".", ",");
+        }
+        return string;
     }
 }
