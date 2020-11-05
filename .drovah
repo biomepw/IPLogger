@@ -1,0 +1,6 @@
+[build]
+commands = ["mvn clean package"]
+
+[archive]
+files = ["target/IPLogger-"]
+append_buildnumber = true
