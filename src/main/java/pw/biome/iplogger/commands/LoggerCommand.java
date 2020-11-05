@@ -2,6 +2,7 @@ package pw.biome.iplogger.commands;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.CommandCompletion;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Description;
 import co.aikar.commands.annotation.Subcommand;
@@ -18,6 +19,7 @@ public class LoggerCommand extends BaseCommand {
 
     @Subcommand("check|c")
     @CommandPermission("iplogger.admin")
+    @CommandCompletion("* * @players")
     @Description("Checks a users prior IPs")
     public void check(CommandSender sender, OfflinePlayer player) {
         if (player != null) {

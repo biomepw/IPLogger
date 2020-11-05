@@ -4,6 +4,7 @@ import co.aikar.commands.PaperCommandManager;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 import pw.biome.iplogger.commands.LoggerCommand;
+import pw.biome.iplogger.listeners.LoggerListener;
 
 import java.util.*;
 
@@ -23,6 +24,8 @@ public final class IPLogger extends JavaPlugin {
 
         PaperCommandManager manager = new PaperCommandManager(instance);
         manager.registerCommand(new LoggerCommand());
+
+        getServer().getPluginManager().registerEvents(new LoggerListener(), instance);
     }
 
     @Override
