@@ -68,9 +68,10 @@ public final class IPLogger extends JavaPlugin {
      */
     public void loadAllToMemory() {
         for (String key : getConfig().getKeys(false)) {
+            String convertedKey = key.replaceAll(",", ".");
             HashSet<UUID> hashSet = new HashSet<>();
             getConfig().getStringList(key).forEach(uuidString -> hashSet.add(UUID.fromString(uuidString)));
-            playerIpMap.put(key, hashSet);
+            playerIpMap.put(convertedKey, hashSet);
         }
         getLogger().info("Loaded all data to memory");
     }
@@ -80,9 +81,10 @@ public final class IPLogger extends JavaPlugin {
      */
     public void saveAllToFile() {
         playerIpMap.forEach((address, users) -> {
+            String ymlSafeAddress = address.replaceAll(".", ",");
             List<String> userList = new ArrayList<>();
             users.forEach(uuid -> userList.add(uuid.toString()));
-            getConfig().set(address, userList);
+            getConfig().set(ymlSafeAddress, userList);
         });
         saveConfig();
     }

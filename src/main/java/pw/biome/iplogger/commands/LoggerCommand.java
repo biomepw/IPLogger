@@ -10,6 +10,7 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
+import pro.husk.whitelistsql.WhitelistSQL;
 import pro.husk.whitelistsql.utility.UUIDFetcher;
 import pw.biome.iplogger.IPLogger;
 
@@ -25,11 +26,18 @@ public class LoggerCommand extends BaseCommand {
         if (player != null) {
             Bukkit.getScheduler().runTaskAsynchronously(IPLogger.getInstance(), () -> {
                 sender.sendMessage(ChatColor.GOLD + "Clashes for user: " + ChatColor.AQUA + player.getName());
-                IPLogger.getClashesForUUID(player.getUniqueId()).forEach(clash -> {
-                    String name = UUIDFetcher.getName(clash);
-                    sender.sendMessage(ChatColor.RED + name);
-                });
+                IPLogger.getClashesForUUID(player.getUniqueId()).forEach(clash -> sender.sendMessage(ChatColor.RED + UUIDFetcher.getName(clash)));
             });
         }
+    }
+
+    @Subcommand("ip|i")
+    @CommandPermission("iplogger.admin")
+    @Description("Checks who has logged in with given IP")
+    public void ip(CommandSender sender, String address) {
+        Bukkit.getScheduler().runTaskAsynchronously(IPLogger.getInstance(), () -> {
+            sender.sendMessage(ChatColor.GOLD + "Clashes for IP: " + ChatColor.AQUA + address);
+            IPLogger.getClashes(address).forEach(clash -> sender.sendMessage(ChatColor.RED + UUIDFetcher.getName(clash)));
+        });
     }
 }
