@@ -81,7 +81,7 @@ public final class IPLogger extends JavaPlugin {
      */
     public void saveAllToFile() {
         playerIpMap.forEach((address, users) -> {
-            String ymlSafeAddress = address.replaceAll(".", ",");
+            String ymlSafeAddress = address.replaceAll("/\\./", ",");
             List<String> userList = new ArrayList<>();
             users.forEach(uuid -> userList.add(uuid.toString()));
             getConfig().set(ymlSafeAddress, userList);
