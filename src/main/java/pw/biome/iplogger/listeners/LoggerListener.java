@@ -24,8 +24,13 @@ public class LoggerListener implements Listener {
             HashSet<UUID> clashSet = IPLogger.getClashes(address);
 
             if (clashSet != null && !clashSet.isEmpty()) {
+                // Don't report users who only clash with themselves
+                if (clashSet.size() == 1 && clashSet.contains(uuid)) {
+                    return;
+                }
+
                 Bukkit.broadcast(ChatColor.RED + event.getName() + " has an IP clash with users:", "iplogger.admin");
-                StringBuilder discordClashMessage = new StringBuilder(":alert: User '" + event.getName() + "' has an IP clash with following users: ```");
+                StringBuilder discordClashMessage = new StringBuilder(":exclamation: User '" + event.getName() + "' has an IP clash with following users: ```");
 
                 clashSet.forEach(clashUUID -> {
                     if (!clashUUID.equals(uuid)) {
