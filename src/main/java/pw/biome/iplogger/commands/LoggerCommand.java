@@ -20,7 +20,7 @@ public class LoggerCommand extends BaseCommand {
 
     @Subcommand("check|c")
     @CommandPermission("iplogger.admin")
-    @CommandCompletion("* * @players")
+    @CommandCompletion("@players")
     @Description("Checks a users prior IPs")
     public void check(CommandSender sender, OfflinePlayer player) {
         if (player != null) {
