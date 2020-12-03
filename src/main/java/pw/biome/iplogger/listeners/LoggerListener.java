@@ -6,7 +6,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import pro.husk.whitelistsql.utility.UUIDFetcher;
-import pw.biome.biomechatrelay.util.ChatUtility;
 import pw.biome.iplogger.IPLogger;
 
 import java.util.HashSet;
@@ -30,17 +29,13 @@ public class LoggerListener implements Listener {
                 }
 
                 Bukkit.broadcast(ChatColor.RED + event.getName() + " has an IP clash with users:", "iplogger.admin");
-                StringBuilder discordClashMessage = new StringBuilder(":exclamation: User '" + event.getName() + "' has an IP clash with following users: ```");
 
                 clashSet.forEach(clashUUID -> {
                     if (!clashUUID.equals(uuid)) {
                         String name = UUIDFetcher.getName(uuid);
                         Bukkit.broadcast(ChatColor.GOLD + "- " + name, "iplogger.admin");
-                        discordClashMessage.append(name).append("\n");
                     }
                 });
-
-                ChatUtility.sendToAdminChannel(discordClashMessage.toString());
             }
 
             IPLogger.addAddress(uuid, address);
